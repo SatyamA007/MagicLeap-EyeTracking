@@ -5,7 +5,9 @@ using UnityEngine;
 public class motion : MonoBehaviour
 {
     public GameObject allPoints;
-    public float[] duration = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    float[] duration = {1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f, 
+                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f,
+                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f};
     public bool doorOpen = false;
     int idx = 0;
     List<int> randomizedPaths = new List<int>();
@@ -22,6 +24,7 @@ public class motion : MonoBehaviour
             randomizedPaths[randomIndex] = temp;
         }
 
+        transform.position = getPositionNext(randomizedPaths[idx])[0];
         StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
     }
 
@@ -36,19 +39,23 @@ public class motion : MonoBehaviour
 
     IEnumerator MoveToEnd(int nextPath)
     {
-        transform.position = getPositionNext(nextPath)[0]; 
+        // transform.position = getPositionNext(nextPath)[0]; 
         float timeElapsed = 0;
         Vector3 startPosition = transform.position;
-        while (timeElapsed < duration[nextPath]*2)
+        
+        while (timeElapsed < (float)duration[idx-1])
         {
-            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / (2*duration[nextPath]));
+            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / (float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
         transform.position = getPositionNext(nextPath)[1];
         
-        if(idx<24)
+        if(idx<24){
+            yield return new WaitForSeconds(1f);
+            transform.position = getPositionNext(randomizedPaths[idx])[0]; 
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
+        }
     }
 
 
