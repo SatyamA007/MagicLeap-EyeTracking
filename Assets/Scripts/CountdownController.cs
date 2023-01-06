@@ -34,6 +34,6 @@ public class CountdownController : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         countdownDisplay.gameObject.SetActive(false);
-        GetComponentInChildren<motion>().doorOpen = true;
+        GetComponentInChildren<motion3d>().doorOpen = true;
     }
 }
