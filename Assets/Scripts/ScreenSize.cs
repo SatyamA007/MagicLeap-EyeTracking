@@ -126,9 +126,9 @@ public class ScreenSize : MonoBehaviour
     void Update()
     {
         updateTouchpadInput();
-
-        bool directionReverse = _controller.CurrentTouchpadGesture.Type.ToString().Contains("Force")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Radial");
-        bool directionFrwrd = _controller.CurrentTouchpadGesture.Type.ToString().Contains("Tap")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Swipe");
+        bool force = _controller.Touch1PosAndForce.z>0;
+        bool directionReverse = (_controller.CurrentTouchpadGesture.Type.ToString().Contains("Force")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Radial"))&&force;
+        bool directionFrwrd = (_controller.CurrentTouchpadGesture.Type.ToString().Contains("Tap")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Swipe"))&&force;
         
         if(current==2||current==3){
             bool temp = directionFrwrd;
