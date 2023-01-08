@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace MagicLeap_EyeTracking{
 public class CountdownController : MonoBehaviour
 {
     public Text countdownDisplay;
@@ -36,4 +37,5 @@ public class CountdownController : MonoBehaviour
         countdownDisplay.gameObject.SetActive(false);
         GetComponentInChildren<motion3d>().doorOpen = true;
     }
+}
 }

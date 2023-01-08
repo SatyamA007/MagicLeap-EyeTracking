@@ -6,6 +6,7 @@ using TMPro;
 using System.IO;
 using System;
 
+namespace MagicLeap_EyeTracking{
 //Data being recorded in each frame
 [System.Serializable]
 public class ScreenFrames
@@ -74,6 +75,7 @@ public class ScreenSize : MonoBehaviour
             if(!record)
             {
                 print(recordings.writeframes.Count);
+                print(Application.persistentDataPath);
                 string jsonData = JsonUtility.ToJson(recordings);
                 File.WriteAllText(Path.Combine(Application.persistentDataPath, DateTime.Now.ToString("MMdd_HHmmss_tt") + ".json"), jsonData);
             }
@@ -183,4 +185,5 @@ public class ScreenSize : MonoBehaviour
         //Write info to screen
         resultText.GetComponent<TextMeshProUGUI>().text = "selected frame: " + names[current] + "\ndimensions :" + (Vector3.Distance(frames[1].transform.position, frames[3].transform.position) * 100.0f).ToString("F2") + " x " + (Vector3.Distance(frames[0].transform.position, frames[2].transform.position) * 100.0f).ToString("F2") + "\nrecording: " + record.ToString();
     }
+}
 }

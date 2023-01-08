@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 5298562163944564633}
   - component: {fileID: 5298562163944564632}
   - component: {fileID: 5298562163944564635}
+  - component: {fileID: 5920595918532113006}
   m_Layer: 5
   m_Name: Target
   m_TagString: Untagged
@@ -617,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allPoints: {fileID: 5298562165057040901}
   doorOpen: 0
+  participantID: 0001
 --- !u!114 &5298562163944564635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +632,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownDisplay: {fileID: 0}
+--- !u!114 &5920595918532113006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298562163944564637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12156aacdf4dcc9409fa22263e94e065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTrialNumber: 0
+  outputFolder: 
 --- !u!1 &5298562163988705476
 GameObject:
   m_ObjectHideFlags: 0
