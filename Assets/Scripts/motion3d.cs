@@ -15,6 +15,8 @@ public class motion3d : MonoBehaviour
                         1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f};
     List<int> randomizedPaths = new List<int>();
     Logger.TrialLogger trialLogger;
+    int TOTAL_PATHS = 24;
+
     void Start()
     {
         participantID = System.DateTime.Now.ToString("MMdd_HHmmss_tt");
@@ -24,7 +26,7 @@ public class motion3d : MonoBehaviour
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
 
-        for(int i=0;i<24;i++)
+        for(int i=0;i<TOTAL_PATHS;i++)
             randomizedPaths.Add(i);
 
         for (int i = 0; i < randomizedPaths.Count; i++) {
@@ -41,7 +43,7 @@ public class motion3d : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(doorOpen&&idx<24){
+        if(doorOpen&&idx<TOTAL_PATHS){
             doorOpen = false;
             StartCoroutine(MoveToEnd(randomizedPaths[idx++]));
         }
@@ -62,7 +64,7 @@ public class motion3d : MonoBehaviour
         }
         transform.position = getPositionNext(nextPath)[1];
         
-        if(idx<24){
+        if(idx<TOTAL_PATHS){
             yield return new WaitForSeconds(1f);
             transform.position = getPositionNext(randomizedPaths[idx])[0]; 
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());

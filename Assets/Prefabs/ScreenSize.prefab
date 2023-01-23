@@ -88,7 +88,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &484801532335020674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +204,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  visiblityPlane: {fileID: 0}
+  _main: {fileID: 0}
   resultText: {fileID: 6936699400969338821}
   stateText: {fileID: 8097179293016861355}
   current: 0
@@ -380,10 +382,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Use the controller touchpad to position the 4 lines along each edge the
-    window to barely come into (get out of) your FOV. \n\nA correct positioning would
-    have the lines place such that each line is appears to cut off along its width
-    by the device FOV/application window."
+  m_Text: 'Use the controller touchpad to position the 4 lines along each edge of
+    the window to the FOV''s extreme ends. Until red is not visible.
+
+    Tapping
+    will move the respective line towards the edge whereas a force press would bring
+    it closer to the center of the window.'
 --- !u!1 &3395081120589246486
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 50, y: 0.0036010742}
+  m_AnchoredPosition: {x: 50, y: -0.013244629}
   m_SizeDelta: {x: -100, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &513643688196642660
@@ -1062,13 +1066,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8961200553612943943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.8627451}
+  m_Color: {r: 0.10435206, g: 0.5975736, b: 0.6320754, a: 0.59607846}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

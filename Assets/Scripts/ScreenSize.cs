@@ -37,6 +37,9 @@ public class ScreenSize : MonoBehaviour
 {
 
     public GameObject[] frames;
+    public GameObject visiblityPlane;
+
+    public Camera _main;
     public TMP_Text resultText;
     public TMP_Text stateText;
     public int current;
@@ -66,6 +69,7 @@ public class ScreenSize : MonoBehaviour
         vertical = true;
         horizontal = false;
         current = 0;
+        _main.backgroundColor = new Color(0.4f,0.14f,0.22f,0.59f);
     }
     void OnButtonDown(byte controllerId, MLInput.Controller.Button button) {
         //Switch between recording and not recording
@@ -129,7 +133,7 @@ public class ScreenSize : MonoBehaviour
     {
         updateTouchpadInput();
         bool force = _controller.Touch1PosAndForce.z>0;
-        bool directionReverse = (_controller.CurrentTouchpadGesture.Type.ToString().Contains("Force")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Radial"))&&force;
+        bool directionReverse = (_controller.CurrentTouchpadGesture.Type.ToString().Contains("Force"))&&force;
         bool directionFrwrd = (_controller.CurrentTouchpadGesture.Type.ToString().Contains("Tap")||_controller.CurrentTouchpadGesture.Type.ToString().Contains("Swipe"))&&force;
         
         if(current==2||current==3){
@@ -159,6 +163,8 @@ public class ScreenSize : MonoBehaviour
             frames[current].transform.position = frames[current].transform.position + new Vector3(0.001f, 0.0f, 0.0f);
         }
         
+        positionVisPlane();
+
         if (record)
         {
             //Save all data for each frame
@@ -185,5 +191,21 @@ public class ScreenSize : MonoBehaviour
         //Write info to screen
         resultText.GetComponent<TextMeshProUGUI>().text = "selected frame: " + names[current] + "\ndimensions :" + (Vector3.Distance(frames[1].transform.position, frames[3].transform.position) * 100.0f).ToString("F2") + " x " + (Vector3.Distance(frames[0].transform.position, frames[2].transform.position) * 100.0f).ToString("F2") + "\nrecording: " + record.ToString();
     }
+    void positionVisPlane() {
+        visiblityPlane.transform.position = 
+            new Vector3(
+                (frames[1].transform.position.x+frames[3].transform.position.x)/2,
+                (frames[0].transform.position.y+frames[2].transform.position.y)/2,
+                (frames[1].transform.position.z+frames[3].transform.position.z)/2
+            );
+        visiblityPlane.transform.localScale = 
+            new Vector3(
+                Vector3.Distance(frames[1].transform.position, frames[3].transform.position),
+                Vector3.Distance(frames[0].transform.position, frames[2].transform.position),
+                0.001f
+            );
+
+    }
+
 }
 }
