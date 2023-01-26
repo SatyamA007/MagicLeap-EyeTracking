@@ -13,9 +13,10 @@ public class motion3d : MonoBehaviour
     float[] duration = {1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f, 
                         1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f,
                         1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f};
+    float constTime = 3f;
     List<int> randomizedPaths = new List<int>();
     Logger.TrialLogger trialLogger;
-    int TOTAL_PATHS = 24;
+    int TOTAL_PATHS = 12;
 
     void Start()
     {
@@ -26,15 +27,17 @@ public class motion3d : MonoBehaviour
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
 
-        for(int i=0;i<TOTAL_PATHS;i++)
+        for(int i=0;i<TOTAL_PATHS;i++){
             randomizedPaths.Add(i);
-
-        for (int i = 0; i < randomizedPaths.Count; i++) {
-            int temp = randomizedPaths[i];
-            int randomIndex = Random.Range(i, randomizedPaths.Count);
-            randomizedPaths[i] = randomizedPaths[randomIndex];
-            randomizedPaths[randomIndex] = temp;
+            duration[i]*=4;
         }
+
+        // for (int i = 0; i < randomizedPaths.Count; i++) {
+        //     int temp = randomizedPaths[i];
+        //     int randomIndex = Random.Range(i, randomizedPaths.Count);
+        //     randomizedPaths[i] = randomizedPaths[randomIndex];
+        //     randomizedPaths[randomIndex] = temp;
+        // }
 
         transform.position = getPositionNext(randomizedPaths[idx])[0];
         StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
@@ -55,10 +58,10 @@ public class motion3d : MonoBehaviour
         float timeElapsed = 0;
         Vector3 startPosition = transform.position;
         
-        while (timeElapsed < (float)duration[idx-1])
+        while (timeElapsed < constTime)//(float)duration[idx-1])
         {
             logEyeTrackingData(nextPath);
-            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / (float) duration[idx-1]);
+            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
