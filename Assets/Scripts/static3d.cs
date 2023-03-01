@@ -4,60 +4,59 @@ using UnityEngine;
 using UnityEngine.XR.MagicLeap;
 
 namespace MagicLeap_EyeTracking {
-public class motion3d : MonoBehaviour
+public class static3d : MonoBehaviour
 {
     public GameObject allPoints;
     public bool doorOpen = false;
     string participantID;
     int idx = 0;
-    float[] duration = {1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f, 
-                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f,
-                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f};
     float constTime = 3f;
-    List<int> randomizedPaths = new List<int>();
+    List<int> randomizedPositions = new List<int>();
     Logger.TrialLogger trialLogger;
-    int TOTAL_PATHS = 12;
+    int TOTAL_PATHS = 25;
     private MLInput.Controller _controller;
     private bool gameStarted = false;
-    void Start()
+
+        void Start()
     {
         participantID = System.DateTime.Now.ToString("MMdd_HHmmss_tt");
         List<string> columnList = new List<string> { "gaze_confidence","gaze_x", "gaze_y", "gaze_z", "sphere_x", "sphere_y", "sphere_z" };
 
-        // // initialise trial logger
+        // initialise trial logger
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
 
         for(int i=0;i<TOTAL_PATHS;i++){
-            randomizedPaths.Add(i);
-            duration[i]*=4;
+            randomizedPositions.Add(i);
         }
 
-        // for (int i = 0; i < randomizedPaths.Count; i++) {
-        //     int temp = randomizedPaths[i];
-        //     int randomIndex = Random.Range(i, randomizedPaths.Count);
-        //     randomizedPaths[i] = randomizedPaths[randomIndex];
-        //     randomizedPaths[randomIndex] = temp;
-        // }
+        // Simple randomization
+        for (int i = 0; i < randomizedPositions.Count; i++) {
+            int temp = randomizedPositions[i];
+            int randomIndex = Random.Range(i, randomizedPositions.Count);
+            randomizedPositions[i] = randomizedPositions[randomIndex];
+            randomizedPositions[randomIndex] = temp;
+        }
 
-        transform.position = getPositionNext(randomizedPaths[idx])[0];
+        transform.position = getPositionNext(randomizedPositions[idx])[0];
         MLInput.OnControllerButtonDown += OnButtonDown;
         _controller = MLInput.GetController(MLInput.Hand.Left);
     }
 
     void OnButtonDown(byte controllerId, MLInput.Controller.Button button) {
         if (button == MLInput.Controller.Button.Bumper && !gameStarted) {
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
+            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(1));
             gameStarted = true;
         }
     }
+
 
     // Update is called once per frame
     void Update()
     {
         if(doorOpen&&idx<TOTAL_PATHS){
             doorOpen = false;
-            StartCoroutine(MoveToEnd(randomizedPaths[idx++]));
+            StartCoroutine(MoveToEnd(randomizedPositions[idx++]));
         }
     }
 
@@ -69,8 +68,9 @@ public class motion3d : MonoBehaviour
         
         while (timeElapsed < constTime)//(float)duration[idx-1])
         {
-            logEyeTrackingData(nextPath);
-            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
+            if(timeElapsed>1f)
+                logEyeTrackingData(nextPath);
+            transform.position = getPositionNext(nextPath)[1];//Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
@@ -78,8 +78,8 @@ public class motion3d : MonoBehaviour
         
         if(idx<TOTAL_PATHS){
             yield return new WaitForSeconds(1f);
-            transform.position = getPositionNext(randomizedPaths[idx])[0]; 
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
+            transform.position = getPositionNext(randomizedPositions[idx])[0]; 
+            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(1));
         }
         else
             QuitGame();
@@ -101,7 +101,7 @@ public class motion3d : MonoBehaviour
 
     public void QuitGame()
     {
-        // // save any game data here
+        // save any game data here
         // #if UNITY_EDITOR
         //     // Application.Quit() does not work in the editor so
         //     // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
@@ -109,14 +109,12 @@ public class motion3d : MonoBehaviour
         // #else
         //     Application.Quit();
         // #endif
+
         trialLogger.flushDatatoFile();
     }
 
     Vector3[] getPositionNext(int i){
-        if(i<12)
-            return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(i+12).gameObject.transform.position};
-        else
-            return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(i-12).gameObject.transform.position};
+        return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(i).gameObject.transform.position};
     }
 }
 }

@@ -7,17 +7,19 @@ namespace MagicLeap_EyeTracking{
 public class CountdownController : MonoBehaviour
 {
     public Text countdownDisplay;
+    public GameObject clickToContinue;
     int countdownTime = 3;
     
     private void Start()
     {
-        
+        countdownDisplay.gameObject.SetActive(false);
     }
 
-    public IEnumerator CountdownToStart()
+    public IEnumerator CountdownToStart(int count = 3)
     {
-       
+        countdownTime = count;
         countdownDisplay.gameObject.SetActive(true);
+        clickToContinue.gameObject.SetActive(false);
 
         while(countdownTime > 0)
         {
@@ -35,7 +37,12 @@ public class CountdownController : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         countdownDisplay.gameObject.SetActive(false);
-        GetComponentInChildren<motion3d>().doorOpen = true;
+        
+        if(count==1){
+            GetComponentInChildren<static3d>().doorOpen = true;
+        }
+        else
+            GetComponentInChildren<motion3d>().doorOpen = true;
     }
 }
 }

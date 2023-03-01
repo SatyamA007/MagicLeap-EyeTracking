@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 namespace MagicLeap_EyeTracking.Logger
 {
@@ -103,14 +104,17 @@ namespace MagicLeap_EyeTracking.Logger
 
         private void OnApplicationQuit()
         {
+            flushDatatoFile();
+        }
 
+        public void flushDatatoFile()
+        {
             if (output != null && dataOutputPath != null)
             {
                 File.WriteAllLines(dataOutputPath, output.ToArray());
                 Debug.Log(string.Format("Saved data to {0}.", dataOutputPath));
             }
             else Debug.LogError("Error saving data - TrialLogger was not initialsed properly");
-            
         }
     }
 }
