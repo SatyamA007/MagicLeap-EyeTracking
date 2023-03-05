@@ -253,7 +253,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1140736714}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5298562163944564635, guid: 9d6309a0ad0982c42adc9c9e9863ef86, type: 3}
       propertyPath: clickToContinue
@@ -269,7 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5298562163988705477, guid: 9d6309a0ad0982c42adc9c9e9863ef86, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5298562163988705477, guid: 9d6309a0ad0982c42adc9c9e9863ef86, type: 3}
       propertyPath: m_LocalScale.x
@@ -501,6 +501,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4214550324010282, guid: 24158fb1437dc8e418d893939758764d, type: 3}
   m_PrefabInstance: {fileID: 1140736713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1277709684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5298562163988705476, guid: 9d6309a0ad0982c42adc9c9e9863ef86, type: 3}
+  m_PrefabInstance: {fileID: 468298700}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1281483838 stripped
 MonoBehaviour:
@@ -767,3 +772,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6884f69ad0adbb441905ff499f5d1ece, type: 3}
+--- !u!1001 &3777103098069734026
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 383683377862000611, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3777103097003806184, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: sphereTarget
+      value: 
+      objectReference: {fileID: 1277709684}
+    - target: {fileID: 7948888890203274518, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}
+      propertyPath: m_Name
+      value: DeepSea Image Tracker
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50fd1949e19388a4094d1869f0912ac5, type: 3}

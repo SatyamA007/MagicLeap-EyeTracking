@@ -41,23 +41,24 @@ public class motion3d : MonoBehaviour
         // }
 
         transform.position = getPositionNext(randomizedPaths[idx])[0];
-        MLInput.OnControllerButtonDown += OnButtonDown;
-        _controller = MLInput.GetController(MLInput.Hand.Left);
+        // MLInput.OnControllerButtonDown += OnButtonDown;
+        // _controller = MLInput.GetController(MLInput.Hand.Left);
     }
 
-    void OnButtonDown(byte controllerId, MLInput.Controller.Button button) {
-        if (button == MLInput.Controller.Button.Bumper && !gameStarted) {
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
-            gameStarted = true;
-        }
-    }
+    // void OnButtonDown(byte controllerId, MLInput.Controller.Button button) {
+        
+    // }
 
     // Update is called once per frame
     void Update()
     {
-        if(doorOpen&&idx<TOTAL_PATHS){
+        if(Input.GetKeyDown(KeyCode.W)&&doorOpen&&idx<TOTAL_PATHS){
             doorOpen = false;
             StartCoroutine(MoveToEnd(randomizedPaths[idx++]));
+        }
+        if ( Input.GetKeyDown(KeyCode.Q)) {
+            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
+            gameStarted = true;
         }
     }
 
