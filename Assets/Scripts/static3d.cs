@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.MagicLeap;
 using static UnityEngine.XR.MagicLeap.MLHeadTracking;
 
@@ -14,14 +15,14 @@ public class static3d : MonoBehaviour
     float constTime = 3f;
     List<int> randomizedPositions = new List<int>();
     Logger.TrialLogger trialLogger;
-    int TOTAL_PATHS = 25;
+    int TOTAL_PATHS = 15;
     private MLInput.Controller _controller;
     private bool gameStarted = false;
 
-        void Start()
+    void Start()
     {
-        participantID = System.DateTime.Now.ToString("MMdd_HHmmss_tt");
-        List<string> columnList = new List<string>();
+        participantID = SceneManager.GetActiveScene().name+"_"+System.DateTime.Now.ToString("MMdd_HHmmss_tt");
+        List<string> columnList = new List<string> ();
         
         // initialise trial logger
         trialLogger = GetComponent<Logger.TrialLogger>();
@@ -50,9 +51,12 @@ public class static3d : MonoBehaviour
             doorOpen = false;
             StartCoroutine(MoveToEnd(randomizedPositions[idx++]));
         }
-        if ( Input.GetKeyDown(KeyCode.Q)) {
+        if ( Input.GetKeyDown(KeyCode.Q)&&idx<TOTAL_PATHS) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(1));
             gameStarted = true;
+        }
+        if ( Input.GetKeyDown(KeyCode.X)) {
+            QuitGame();
         }
     }
 
@@ -89,6 +93,18 @@ public class static3d : MonoBehaviour
     public void QuitGame()
     {
         trialLogger.flushDatatoFile();
+        if(welcome.sceneIdx<welcome.sceneOrder.Count)
+            SceneManager.LoadSceneAsync(welcome.sceneOrder[welcome.sceneIdx++]);
+        else {
+            #if UNITY_EDITOR
+                // Application.Quit() does not work in the editor so
+                // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        }
+
     }
 
     Vector3[] getPositionNext(int i){

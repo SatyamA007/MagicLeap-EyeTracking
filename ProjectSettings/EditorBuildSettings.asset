@@ -84,14 +84,35 @@ EditorBuildSettings:
     path: Assets/MagicLeap/Examples/Streaming/MusicService/Scenes/MusicService.unity
     guid: bc489255230dff5439c3a3fba5c66759
   - enabled: 0
-    path: Assets/Scenes/3dPursuitSphere.unity
+    path: Assets/Scenes/Extra/3dPursuitSphere.unity
     guid: e40d5d6d616f4074798a3ecb857b0138
   - enabled: 0
+    path: Assets/Scenes/Extra/3dPursuitSphere_static.unity
+    guid: fe90dc153cb06ce40ab677ba542e8a61
+  - enabled: 1
+    path: Assets/Scenes/start.unity
+    guid: f3de6d2f58e7d1f4495f91066fed18ba
+  - enabled: 1
     path: Assets/Scenes/w7.unity
     guid: 43987ba6c9f75064eb7c17e25b5c64fd
   - enabled: 1
-    path: Assets/Scenes/3dPursuitSphere_static.unity
-    guid: fe90dc153cb06ce40ab677ba542e8a61
+    path: Assets/Scenes/w1.unity
+    guid: 341cc753655f8da4eaa8f268c9e10ced
+  - enabled: 1
+    path: Assets/Scenes/b8.unity
+    guid: 6061bddc9b5adfb45834757967df2cb3
+  - enabled: 1
+    path: Assets/Scenes/s4.unity
+    guid: f284460b0c460a3409248f2c77057de3
+  - enabled: 1
+    path: Assets/Scenes/s6.unity
+    guid: fb8e8fdf8bf24e24698b8d66943e2073
+  - enabled: 1
+    path: Assets/Scenes/w2.unity
+    guid: 1b8225764e8f831489a2b93b6e6365d9
+  - enabled: 1
+    path: Assets/Scenes/w3.unity
+    guid: 3a709d5384188cb46a69b4568a27d6cd
   m_configObjects:
     com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: e74d74253eeaaee41a6792c8d86712a8, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 59ceb475d0dbca0478340e450c5339b6, type: 2}

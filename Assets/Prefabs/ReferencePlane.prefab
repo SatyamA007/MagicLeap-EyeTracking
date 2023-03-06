@@ -229,7 +229,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 2
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8688287740302895197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865935529217621162, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 95.2
       objectReference: {fileID: 0}
     - target: {fileID: 4865935529217621162, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -435,13 +435,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4865935530108455160, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865935530108455160, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -95.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4865935530108455161, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
       propertyPath: m_Text
       value: Press the BUMPER to continue.
       objectReference: {fileID: 0}
     - target: {fileID: 4865935530108455161, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
-      propertyPath: m_FontData.m_HorizontalOverflow
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865935530108455161, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865935530108455161, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa2cc42cd5d4c6344b0850dcf4bc7ca0, type: 3}

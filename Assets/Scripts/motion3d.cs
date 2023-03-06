@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.MagicLeap;
 
 namespace MagicLeap_EyeTracking {
@@ -21,10 +22,10 @@ public class motion3d : MonoBehaviour
     private bool gameStarted = false;
     void Start()
     {
-        participantID = System.DateTime.Now.ToString("MMdd_HHmmss_tt");
+        participantID = SceneManager.GetActiveScene().name+"_"+System.DateTime.Now.ToString("MMdd_HHmmss_tt");
         List<string> columnList = new List<string> ();
         
-        // // initialise trial logger
+        // initialise trial logger
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
 
@@ -46,6 +47,9 @@ public class motion3d : MonoBehaviour
         if ( Input.GetKeyDown(KeyCode.Q)) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
             gameStarted = true;
+        }
+        if ( Input.GetKeyDown(KeyCode.X)) {
+            QuitGame();
         }
     }
 
@@ -79,8 +83,20 @@ public class motion3d : MonoBehaviour
     }
 
     public void QuitGame()
-    {   
+    {
         trialLogger.flushDatatoFile();
+        if(welcome.sceneIdx<welcome.sceneOrder.Count)
+            SceneManager.LoadSceneAsync(welcome.sceneOrder[welcome.sceneIdx++]);
+        else {
+            #if UNITY_EDITOR
+                // Application.Quit() does not work in the editor so
+                // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        }
+
     }
 
     Vector3[] getPositionNext(int i){

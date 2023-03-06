@@ -704,6 +704,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReferencePlane
       objectReference: {fileID: 0}
+    - target: {fileID: 8465091947628263911, guid: bd4a1963fe70d524484e730a0b03046a, type: 3}
+      propertyPath: m_Text
+      value: 'Code w7. World-Stabilised target and free moving with moving target.
+
+        Locate
+        the image tracker and start moving about the table once the target is visible.
+
+
+        Press
+        Q to begin and W to start moving the target each time.'
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5961017262581216212, guid: bd4a1963fe70d524484e730a0b03046a, type: 3}
     - {fileID: 137943079192674501, guid: bd4a1963fe70d524484e730a0b03046a, type: 3}
