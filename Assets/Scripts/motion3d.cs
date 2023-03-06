@@ -22,8 +22,8 @@ public class motion3d : MonoBehaviour
     void Start()
     {
         participantID = System.DateTime.Now.ToString("MMdd_HHmmss_tt");
-        List<string> columnList = new List<string> { "gaze_confidence","gaze_x", "gaze_y", "gaze_z", "sphere_x", "sphere_y", "sphere_z" };
-
+        List<string> columnList = new List<string> ();
+        
         // // initialise trial logger
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
@@ -33,21 +33,8 @@ public class motion3d : MonoBehaviour
             duration[i]*=4;
         }
 
-        // for (int i = 0; i < randomizedPaths.Count; i++) {
-        //     int temp = randomizedPaths[i];
-        //     int randomIndex = Random.Range(i, randomizedPaths.Count);
-        //     randomizedPaths[i] = randomizedPaths[randomIndex];
-        //     randomizedPaths[randomIndex] = temp;
-        // }
-
         transform.position = getPositionNext(randomizedPaths[idx])[0];
-        // MLInput.OnControllerButtonDown += OnButtonDown;
-        // _controller = MLInput.GetController(MLInput.Hand.Left);
     }
-
-    // void OnButtonDown(byte controllerId, MLInput.Controller.Button button) {
-        
-    // }
 
     // Update is called once per frame
     void Update()
@@ -64,11 +51,10 @@ public class motion3d : MonoBehaviour
 
     IEnumerator MoveToEnd(int nextPath)
     {
-        // transform.position = getPositionNext(nextPath)[0]; 
         float timeElapsed = 0;
         Vector3 startPosition = transform.position;
         
-        while (timeElapsed < constTime)//(float)duration[idx-1])
+        while (timeElapsed < constTime)
         {
             logEyeTrackingData(nextPath);
             transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
@@ -88,28 +74,12 @@ public class motion3d : MonoBehaviour
 
     private void logEyeTrackingData(int nextPath)
     {
-        trialLogger.StartTrial();
-        trialLogger.trial["PathIDX"] = nextPath.ToString();
-        trialLogger.trial["gaze_confidence"] = MLEyes.FixationConfidence.ToString();
-        trialLogger.trial["gaze_x"] = MLEyes.FixationPoint.x.ToString();
-        trialLogger.trial["gaze_y"] = MLEyes.FixationPoint.y.ToString();
-        trialLogger.trial["gaze_z"] = MLEyes.FixationPoint.z.ToString();
-        trialLogger.trial["sphere_x"] = transform.position.x.ToString();
-        trialLogger.trial["sphere_y"] = transform.position.y.ToString();
-        trialLogger.trial["sphere_z"] = transform.position.z.ToString();
+        trialLogger.StartTrial(nextPath);
         trialLogger.EndTrial();
     }
 
     public void QuitGame()
-    {
-        // // save any game data here
-        // #if UNITY_EDITOR
-        //     // Application.Quit() does not work in the editor so
-        //     // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-        //     UnityEditor.EditorApplication.isPlaying = false;
-        // #else
-        //     Application.Quit();
-        // #endif
+    {   
         trialLogger.flushDatatoFile();
     }
 

@@ -31,7 +31,7 @@ namespace MagicLeap_EyeTracking.Logger
         trialLogger.Initialize(participantID, columnList);
 
         // here we start the first trial immediately, you can start it at any time
-        trialLogger.StartTrial();
+        trialLogger.StartTrial(1);
 
         // now we update the trial number on screen
         trialNumDisplay.UpdateTrialNumber(trialLogger.currentTrialNumber);
@@ -61,7 +61,7 @@ namespace MagicLeap_EyeTracking.Logger
 
         // here we could have some time for feedback, loading the next trial etc
         // but we will just start the next trial immediately
-        trialLogger.StartTrial();
+        trialLogger.StartTrial(1);
 
         // now we update the trial number on screen
         trialNumDisplay.UpdateTrialNumber(trialLogger.currentTrialNumber);
