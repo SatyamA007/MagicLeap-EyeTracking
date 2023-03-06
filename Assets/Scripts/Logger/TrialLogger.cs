@@ -9,6 +9,7 @@ namespace MagicLeap_EyeTracking.Logger
 {
     public class TrialLogger : MonoBehaviour {
 
+        public Camera camera;
         public int currentTrialNumber = 0;    
         private GameObject target;    
         List<string> header;
@@ -24,7 +25,7 @@ namespace MagicLeap_EyeTracking.Logger
         
         // Use this for initialization
         void Awake () {
-            outputFolder = Application.dataPath + "/StreamingAssets" + "/output";
+            outputFolder = Path.Combine( Application.persistentDataPath,"output");
             if (!Directory.Exists(outputFolder))
             {
                 Directory.CreateDirectory(outputFolder);
@@ -84,8 +85,6 @@ namespace MagicLeap_EyeTracking.Logger
                 trial.Add(value, "");
             }
         }
-
-        public Camera camera;
         public void StartTrial(int nextPath)
         {
             trialStarted = true;
