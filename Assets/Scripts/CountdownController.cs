@@ -15,6 +15,15 @@ public class CountdownController : MonoBehaviour
         countdownDisplay.gameObject.SetActive(false);
     }
 
+    public IEnumerator MoveAfterSeconds(float s=1f){
+        yield return new WaitForSeconds(s);
+
+        if(s==2f){
+            GetComponentInChildren<static3d>().doorOpen = true;
+        }
+        else
+            GetComponentInChildren<motion3d>().doorOpen = true;
+    }
     public IEnumerator CountdownToStart(int count = 3)
     {
         countdownTime = count;
@@ -38,7 +47,7 @@ public class CountdownController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownDisplay.gameObject.SetActive(false);
         
-        if(count==1){
+        if(count==2){
             GetComponentInChildren<static3d>().doorOpen = true;
         }
         else

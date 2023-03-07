@@ -15,11 +15,11 @@ public class static3d : MonoBehaviour
     float constTime = 3f;
     List<int> randomizedPositions = new List<int>();
     Logger.TrialLogger trialLogger;
-    int TOTAL_PATHS = 15;
+    int TOTAL_PATHS = 12;
     private MLInput.Controller _controller;
-    private bool gameStarted = false;
+    private bool recording = false;
 
-    void Start()
+        void Start()
     {
         participantID = SceneManager.GetActiveScene().name+"_"+System.DateTime.Now.ToString("MMdd_HHmmss_tt");
         List<string> columnList = new List<string> ();
@@ -47,46 +47,50 @@ public class static3d : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(doorOpen&&idx<TOTAL_PATHS){
+        if(doorOpen) {
             doorOpen = false;
-            StartCoroutine(MoveToEnd(randomizedPositions[idx++]));
+            StartCoroutine(MoveToNext(randomizedPositions[idx++]));
+        }
+        if (!recording) {
+            //-1 for when recorded data is not of interest
+            logEyeTrackingData(-1);
         }
         if ( Input.GetKeyDown(KeyCode.Q)&&idx<TOTAL_PATHS) {
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(1));
-            gameStarted = true;
+            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(2));
         }
         if ( Input.GetKeyDown(KeyCode.X)) {
+            // trialLogger.gotReset = true;
             QuitGame();
         }
     }
 
-    IEnumerator MoveToEnd(int nextPath)
+    IEnumerator MoveToNext(int currentPath)
     {
         float timeElapsed = 0;
-        Vector3 startPosition = transform.position;
+        // Vector3 startPosition = transform.position;
         
         while (timeElapsed < constTime)
         {
-            if(timeElapsed>1f)
-                logEyeTrackingData(nextPath);
-            transform.position = getPositionNext(nextPath)[1];//Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
+            recording = true;
+            logEyeTrackingData(currentPath);
+            transform.position = getPositionNext(currentPath)[1];//Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        transform.position = getPositionNext(nextPath)[1];
+        recording = false;
+        transform.position = getPositionNext(currentPath)[1];
         
         if(idx<TOTAL_PATHS){
-            yield return new WaitForSeconds(1f);
             transform.position = getPositionNext(randomizedPositions[idx])[0]; 
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(1));
+            StartCoroutine(GetComponentInChildren<CountdownController>().MoveAfterSeconds(2f));
         }
         else
             QuitGame();
     }
 
-    private void logEyeTrackingData(int nextPath)
+    private void logEyeTrackingData(int currentPath)
     {
-        trialLogger.StartTrial(nextPath);
+        trialLogger.StartTrial(currentPath);
         trialLogger.EndTrial();
     }
 

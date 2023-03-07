@@ -11,16 +11,20 @@ public class motion3d : MonoBehaviour
     public bool doorOpen = false;
     string participantID;
     int idx = 0;
-    float[] duration = {1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f, 
-                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f,
-                        1, 0.5f, 1.5f, 0.75f, 1.25f, 0.3f, 1.7f, 2f};
-    float constTime = 3f;
-    List<int> randomizedPaths = new List<int>();
+    int[] nextPos = {
+                    25,20, 1,24,21,
+                    10, 1, 1, 1,22,
+                     1, 1, 1, 1, 1,
+                     4, 1, 1, 1,16,
+                     2, 3, 1, 6, 5};// nextPos is 1+ the idx, subtract when using
+    float constTime = 5f;
     Logger.TrialLogger trialLogger;
     int TOTAL_PATHS = 12;
     private MLInput.Controller _controller;
     private bool gameStarted = false;
-    void Start()
+    private bool recording = false;
+
+        void Start()
     {
         participantID = SceneManager.GetActiveScene().name+"_"+System.DateTime.Now.ToString("MMdd_HHmmss_tt");
         List<string> columnList = new List<string> ();
@@ -29,56 +33,59 @@ public class motion3d : MonoBehaviour
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
 
-        for(int i=0;i<TOTAL_PATHS;i++){
-            randomizedPaths.Add(i);
-            duration[i]*=4;
-        }
 
-        transform.position = getPositionNext(randomizedPaths[idx])[0];
+        transform.position = getPositionNext(idx)[0];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W)&&doorOpen&&idx<TOTAL_PATHS){
+        if(doorOpen) {
             doorOpen = false;
-            StartCoroutine(MoveToEnd(randomizedPaths[idx++]));
+            StartCoroutine(MoveToNext(idx));
         }
-        if ( Input.GetKeyDown(KeyCode.Q)) {
+        if (!recording) {
+            //-1 for when recorded data is not of interest
+            logEyeTrackingData(-1);
+        }
+        if (Input.GetKeyDown(KeyCode.Q)) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
             gameStarted = true;
         }
-        if ( Input.GetKeyDown(KeyCode.X)) {
+        if (Input.GetKeyDown(KeyCode.X)) {
+            // trialLogger.gotReset = true;
             QuitGame();
         }
     }
 
-    IEnumerator MoveToEnd(int nextPath)
+    IEnumerator MoveToNext(int currentPath)
     {
         float timeElapsed = 0;
         Vector3 startPosition = transform.position;
         
         while (timeElapsed < constTime)
         {
-            logEyeTrackingData(nextPath);
-            transform.position = Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
+            recording = true;
+            logEyeTrackingData(currentPath);
+            transform.position = Vector3.Lerp(startPosition, getPositionNext(currentPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        transform.position = getPositionNext(nextPath)[1];
+        recording = false;
+        transform.position = getPositionNext(currentPath)[1];
+        idx = nextPos[idx]-1;
         
-        if(idx<TOTAL_PATHS){
-            yield return new WaitForSeconds(1f);
-            transform.position = getPositionNext(randomizedPaths[idx])[0]; 
-            StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
+        if(nextPos[idx]-1!=0){
+            transform.position = getPositionNext(idx)[0]; 
+            StartCoroutine(GetComponentInChildren<CountdownController>().MoveAfterSeconds(0.1f));
         }
         else
             QuitGame();
     }
 
-    private void logEyeTrackingData(int nextPath)
+    private void logEyeTrackingData(int currentPath)
     {
-        trialLogger.StartTrial(nextPath);
+        trialLogger.StartTrial(currentPath);
         trialLogger.EndTrial();
     }
 
@@ -100,10 +107,7 @@ public class motion3d : MonoBehaviour
     }
 
     Vector3[] getPositionNext(int i){
-        if(i<12)
-            return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(i+12).gameObject.transform.position};
-        else
-            return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(i-12).gameObject.transform.position};
+        return new Vector3[]{allPoints.transform.GetChild(i).gameObject.transform.position, allPoints.transform.GetChild(nextPos[i]-1).gameObject.transform.position};
     }
 }
 }

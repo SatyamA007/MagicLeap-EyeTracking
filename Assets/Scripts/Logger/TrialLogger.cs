@@ -4,12 +4,14 @@ using UnityEngine;
 using System.IO;
 using System;
 using UnityEngine.XR.MagicLeap;
+using UnityEngine.SceneManagement;
 
 namespace MagicLeap_EyeTracking.Logger
 {
     public class TrialLogger : MonoBehaviour {
 
         public Camera camera;
+        public bool gotReset = false;
         public int currentTrialNumber = 0;    
         private GameObject target;    
         List<string> header;
@@ -21,7 +23,7 @@ namespace MagicLeap_EyeTracking.Logger
         string ppid;
         string dataOutputPath;
         List<string> output;
-
+        bool isPaused;
         
         // Use this for initialization
         void Awake () {
@@ -35,7 +37,17 @@ namespace MagicLeap_EyeTracking.Logger
 
         // Update is called once per frame
         void Update () {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = !isPaused;
+                Time.timeScale = isPaused ? 0 : 1;
+            }
             
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                gotReset = true;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
         public void Initialize(string participantID, List<string> customHeader)
@@ -92,17 +104,17 @@ namespace MagicLeap_EyeTracking.Logger
             InitDict();
             trial["number"] = currentTrialNumber.ToString();
             trial["PathIDX"] = nextPath.ToString();
-            trial["timestamp"] = System.DateTime.Now.ToString();
-            trial["head_pos"] = camera.transform.position.ToString();
-            trial["head_euler"] = camera.transform.eulerAngles.ToString();
+            trial["timestamp"] = System.DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.ffff tt").Replace(',', '_');
+            trial["head_pos"] = camera.transform.position.ToString("f7").Replace(',', '_');
+            trial["head_euler"] = camera.transform.eulerAngles.ToString().Replace(',', '_');
             trial["gaze_confidence"] = MLEyes.FixationConfidence.ToString();
-            trial["gaze_pos"] = MLEyes.FixationPoint.ToString();
-            trial["target_pos"] = transform.position.ToString();
+            trial["gaze_pos"] = MLEyes.FixationPoint.ToString("f7").Replace(',', '_');
+            trial["target_pos"] = transform.position.ToString("f7").Replace(',', '_');
             visualAngles();
-            trial["left_right_eye_center"] = MLEyes.LeftEye.Center.ToString()+":"+MLEyes.RightEye.Center.ToString();
+            trial["left_right_eye_center"] = MLEyes.LeftEye.Center.ToString("f7").Replace(',', '_')+":"+MLEyes.RightEye.Center.ToString("f7").Replace(',', '_');
             trial["left_right_eye_center_confidence"] = MLEyes.LeftEye.CenterConfidence.ToString()+":"+MLEyes.RightEye.CenterConfidence.ToString();
-            trial["left_right_eye_gaze"] = MLEyes.LeftEye.Gaze.ToString()+":"+MLEyes.RightEye.Gaze.ToString();
-            trial["left_right_eye_forward_gaze"] = MLEyes.LeftEye.ForwardGaze.ToString()+":"+MLEyes.RightEye.ForwardGaze.ToString();
+            trial["left_right_eye_gaze"] = MLEyes.LeftEye.Gaze.ToString("f7").Replace(',', '_')+":"+MLEyes.RightEye.Gaze.ToString("f7").Replace(',', '_');
+            trial["left_right_eye_forward_gaze"] = MLEyes.LeftEye.ForwardGaze.ToString("f7").Replace(',', '_')+":"+MLEyes.RightEye.ForwardGaze.ToString("f7").Replace(',', '_');
             trial["left_right_eye_is_blinking"] = MLEyes.LeftEye.IsBlinking.ToString()+":"+MLEyes.RightEye.IsBlinking.ToString();
             trial["calibration_status"] = MLEyes.CalibrationStatus.ToString();
         }
@@ -113,8 +125,8 @@ namespace MagicLeap_EyeTracking.Logger
             Vector3 gazeVector = t.InverseTransformPoint(MLEyes.FixationPoint);
             Vector3 targetVector = t.InverseTransformPoint(transform.position);
 
-            trial["gaze_vector"] = gazeVector.ToString();
-            trial["target_vector"] = targetVector.ToString();
+            trial["gaze_vector"] = gazeVector.ToString("f7").Replace(',', '_');
+            trial["target_vector"] = targetVector.ToString("f7").Replace(',', '_');
 
             //Noting the visual angles for the gaze
             trial["gaze_vis_x"] = (Mathf.Rad2Deg*Mathf.Atan(gazeVector.x/gazeVector.z)).ToString();
@@ -124,9 +136,9 @@ namespace MagicLeap_EyeTracking.Logger
             trial["target_vis_x"] = (Mathf.Rad2Deg*Mathf.Atan(targetVector.x/targetVector.z)).ToString();
             trial["target_vis_y"] = (Mathf.Rad2Deg*Mathf.Atan(targetVector.y/targetVector.z)).ToString();
             
-            trial["local_x_axis"] = t.TransformVector(Vector3.right).ToString();
-            trial["local_y_axis"] = t.TransformVector(Vector3.up).ToString();
-            trial["local_z_axis"] = t.TransformVector(Vector3.forward).ToString();
+            trial["local_x_axis"] = t.TransformVector(Vector3.right).ToString("f7").Replace(',', '_');
+            trial["local_y_axis"] = t.TransformVector(Vector3.up).ToString("f7").Replace(',', '_');
+            trial["local_z_axis"] = t.TransformVector(Vector3.forward).ToString("f7").Replace(',', '_');
         }
         public void EndTrial()
         {
@@ -163,6 +175,11 @@ namespace MagicLeap_EyeTracking.Logger
 
         public void flushDatatoFile()
         {
+            if(gotReset) {
+                Debug.LogError("Reset pressed, skipping file save");
+                return;
+            }
+
             if (output != null && dataOutputPath != null)
             {
                 File.WriteAllLines(dataOutputPath, output.ToArray());

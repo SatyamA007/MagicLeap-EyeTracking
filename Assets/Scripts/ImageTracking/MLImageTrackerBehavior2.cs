@@ -222,7 +222,7 @@ bool foundOnce = false;
                         foundOnce = true;
                         sphereTarget.SetActive(true);
                         sphereTarget.transform.position = result.Position;
-                        // sphereTarget.transform.rotation = result.Rotation;
+                        sphereTarget.transform.rotation = result.Rotation;
                     }
                 }
 
