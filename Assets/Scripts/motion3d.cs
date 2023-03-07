@@ -77,7 +77,7 @@ public class motion3d : MonoBehaviour
         
         if(nextPos[idx]-1!=0){
             transform.position = getPositionNext(idx)[0]; 
-            StartCoroutine(GetComponentInChildren<CountdownController>().MoveAfterSeconds(0.1f));
+            StartCoroutine(GetComponentInChildren<CountdownController>().MoveAfterSeconds());
         }
         else
             QuitGame();

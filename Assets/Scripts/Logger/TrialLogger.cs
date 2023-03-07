@@ -37,7 +37,7 @@ namespace MagicLeap_EyeTracking.Logger
 
         // Update is called once per frame
         void Update () {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P))
             {
                 isPaused = !isPaused;
                 Time.timeScale = isPaused ? 0 : 1;
@@ -47,6 +47,11 @@ namespace MagicLeap_EyeTracking.Logger
             {
                 gotReset = true;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                
             }
         }
 
