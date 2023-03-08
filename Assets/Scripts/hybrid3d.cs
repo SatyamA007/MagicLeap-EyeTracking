@@ -18,7 +18,7 @@ public class hybrid3d : MonoBehaviour
                      1, 1, 1, 1, 1,
                      4, 1, 1, 1,16,
                      2, 3, 1, 6, 5};// nextPos is 1+ the idx, subtract when using
-    float constTime = 2f;
+    float constTime = 5f;
     Logger.TrialLogger trialLogger;
     int TOTAL_PATHS = 12;
     private MLInput.Controller _controller;
@@ -33,7 +33,7 @@ public class hybrid3d : MonoBehaviour
         trialLogger = GetComponent<Logger.TrialLogger>();
         trialLogger.Initialize(participantID, columnList);
         if(SceneManager.GetActiveScene().name.Equals("w2")){
-            constTime = 17;
+            constTime = 14;
             Debug.Log("yes");
         }
 

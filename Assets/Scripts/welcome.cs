@@ -7,7 +7,7 @@ public class welcome : MonoBehaviour
 {
 
     public static List<string> sceneOrder = new List<string> {
-        "w1", "w2", "w3", "s4", "b5"
+        "w1", "w2", "w3", "s4", "b5", "callibrate"
     };
     public static int sceneIdx = 0;
 
@@ -22,11 +22,7 @@ public class welcome : MonoBehaviour
             sceneOrder[randomIndex] = temp;
         }
 
-        int index = sceneOrder.FindIndex(x => x.StartsWith("w1"));
-        sceneOrder.Insert(index, "w1");
-        foreach( var x in sceneOrder) {
-            Debug.Log( x);
-        }
+        
         SceneManager.LoadSceneAsync(sceneOrder[sceneIdx++]);
     }
 

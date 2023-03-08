@@ -15,14 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/s4.unity
     guid: f284460b0c460a3409248f2c77057de3
   - enabled: 1
-    path: Assets/Scenes/backup/s6.unity
-    guid: fb8e8fdf8bf24e24698b8d66943e2073
-  - enabled: 1
     path: Assets/Scenes/w2.unity
     guid: 1b8225764e8f831489a2b93b6e6365d9
   - enabled: 1
     path: Assets/Scenes/w3.unity
     guid: 3a709d5384188cb46a69b4568a27d6cd
+  - enabled: 1
+    path: Assets/Scenes/b5.unity
+    guid: 24847ab91c9ffba4299d9748080b5a85
   m_configObjects:
     com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: e74d74253eeaaee41a6792c8d86712a8, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 59ceb475d0dbca0478340e450c5339b6, type: 2}
