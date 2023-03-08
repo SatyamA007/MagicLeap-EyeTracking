@@ -53,7 +53,7 @@ public class static3d : MonoBehaviour
         }
         if (!recording) {
             //-1 for when recorded data is not of interest
-            logEyeTrackingData(-1);
+            logEyeTrackingData(99);
         }
         if ( Input.GetKeyDown(KeyCode.Q)&&idx<TOTAL_PATHS) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(2));
@@ -72,8 +72,7 @@ public class static3d : MonoBehaviour
         while (timeElapsed < constTime)
         {
             recording = true;
-            logEyeTrackingData(currentPath);
-            transform.position = getPositionNext(currentPath)[1];//Vector3.Lerp(startPosition, getPositionNext(nextPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
+            logEyeTrackingData(currentPath+1);
             timeElapsed += Time.deltaTime;
             yield return null;
         }

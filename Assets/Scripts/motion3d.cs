@@ -46,7 +46,7 @@ public class motion3d : MonoBehaviour
         }
         if (!recording) {
             //-1 for when recorded data is not of interest
-            logEyeTrackingData(-1);
+            logEyeTrackingData(99);
         }
         if (Input.GetKeyDown(KeyCode.Q)) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart());
@@ -61,13 +61,13 @@ public class motion3d : MonoBehaviour
     IEnumerator MoveToNext(int currentPath)
     {
         float timeElapsed = 0;
-        Vector3 startPosition = transform.position;
+        var step =  0.07f * Time.deltaTime; // calculate distance to move
         
         while (timeElapsed < constTime)
         {
             recording = true;
-            logEyeTrackingData(currentPath);
-            transform.position = Vector3.Lerp(startPosition, getPositionNext(currentPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
+            logEyeTrackingData(currentPath+1);
+            transform.position = Vector3.Lerp(getPositionNext(currentPath)[0], getPositionNext(currentPath)[1], timeElapsed / constTime);//(float) duration[idx-1]);
             timeElapsed += Time.deltaTime;
             yield return null;
         }

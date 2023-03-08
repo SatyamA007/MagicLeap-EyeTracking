@@ -223,6 +223,8 @@ bool foundOnce = false;
                         sphereTarget.SetActive(true);
                         sphereTarget.transform.position = result.Position;
                         sphereTarget.transform.rotation = result.Rotation;
+                        Quaternion q = Quaternion.FromToRotation(sphereTarget.transform.up, Vector3.up) * sphereTarget.transform.rotation;
+                        sphereTarget.transform.rotation = q;
                     }
                 }
 

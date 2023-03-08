@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,12 +22,15 @@ public class CountdownController : MonoBehaviour
         if(s==2f){
             GetComponentInChildren<static3d>().doorOpen = true;
         }
+        if(s==1.5f){
+            GetComponentInChildren<hybrid3d>().doorOpen = true;
+        }
         else
             GetComponentInChildren<motion3d>().doorOpen = true;
     }
     public IEnumerator CountdownToStart(int count = 3)
     {
-        countdownTime = count;
+        countdownTime = Math. Abs(count);
         countdownDisplay.gameObject.SetActive(true);
         clickToContinue.gameObject.SetActive(false);
 
@@ -49,6 +53,9 @@ public class CountdownController : MonoBehaviour
         
         if(count==2){
             GetComponentInChildren<static3d>().doorOpen = true;
+        }
+        else if(count==-3){
+            GetComponentInChildren<hybrid3d>().doorOpen = true;
         }
         else
             GetComponentInChildren<motion3d>().doorOpen = true;

@@ -7,7 +7,7 @@ public class welcome : MonoBehaviour
 {
 
     public static List<string> sceneOrder = new List<string> {
-        "w1", "w2", "w3", "s4", "s6", "w7","b8"
+        "w1", "w2", "w3", "s4", "b5"
     };
     public static int sceneIdx = 0;
 

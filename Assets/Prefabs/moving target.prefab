@@ -1627,7 +1627,7 @@ GameObject:
   - component: {fileID: 5298562163944564631}
   - component: {fileID: 5298562163944564630}
   - component: {fileID: 5298562163944564633}
-  - component: {fileID: 5298562163944564632}
+  - component: {fileID: 6271692722671841261}
   - component: {fileID: 5298562163944564635}
   - component: {fileID: 5920595918532113006}
   m_Layer: 5
@@ -1719,7 +1719,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.49999994
   m_Center: {x: 0, y: -0.000030517578, z: 0.00000011920929}
---- !u!114 &5298562163944564632
+--- !u!114 &6271692722671841261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1728,10 +1728,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5298562163944564637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4be849da98cc3141bbf3d29ca4599f5, type: 3}
+  m_Script: {fileID: 11500000, guid: f0df8f33a94c8424e91edc9cbe12202b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allPoints: {fileID: 8856150490000137178}
+  frame: {fileID: 4700149311706661524}
   doorOpen: 0
 --- !u!114 &5298562163944564635
 MonoBehaviour:
@@ -12305,6 +12306,11 @@ PrefabInstance:
 --- !u!4 &1549764700899665440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1144496770084939285, guid: 3d9c50e2163004148bf2cb78f46e54aa, type: 3}
+  m_PrefabInstance: {fileID: 1901591579600011317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4700149311706661524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6582441395581895329, guid: 3d9c50e2163004148bf2cb78f46e54aa, type: 3}
   m_PrefabInstance: {fileID: 1901591579600011317}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8392210290666314617

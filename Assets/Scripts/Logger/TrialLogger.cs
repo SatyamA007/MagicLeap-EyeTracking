@@ -13,7 +13,7 @@ namespace MagicLeap_EyeTracking.Logger
         public Camera camera;
         public bool gotReset = false;
         public int currentTrialNumber = 0;    
-        private GameObject target;    
+        // public GameObject target;    
         List<string> header;
         [HideInInspector]
         public Dictionary<string, string> trial;
@@ -48,10 +48,59 @@ namespace MagicLeap_EyeTracking.Logger
                 gotReset = true;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
-
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.U))
             {
-                
+                transform.parent.transform.Translate(Vector3.up * 0.02f, Space.World);
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                transform.parent.transform.Translate(Vector3.down * 0.02f, Space.World);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                transform.parent.transform.Translate(-camera.transform.forward * 0.02f, Space.World);
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                transform.parent.transform.Translate(camera.transform.forward * 0.02f, Space.World);
+            }
+            if (Input.GetKeyDown(KeyCode.Equals))
+            {
+                transform.parent.transform.localScale += Vector3.one*0.0002f;
+            }
+            if (Input.GetKeyDown(KeyCode.Minus))
+            {
+                transform.parent.transform.localScale -= Vector3.one*0.0002f;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {               
+                gotReset = true;
+                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w1"));
+                SceneManager.LoadScene("w1");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {               
+                gotReset = true;
+                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w2"));
+                SceneManager.LoadScene("w2");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {               
+                gotReset = true;
+                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w3"));
+                SceneManager.LoadScene("w3");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {               
+                gotReset = true;
+                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("s4"));
+                SceneManager.LoadScene("s4");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {               
+                gotReset = true;
+                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("b5"));
+                SceneManager.LoadScene("b5");
             }
         }
 
@@ -68,30 +117,31 @@ namespace MagicLeap_EyeTracking.Logger
 
         private void InitHeader()
         {
-            header.Insert(0, "number");
-            header.Insert(1, "PathIDX");
+            header.Insert(0, "frame");
+            header.Insert(1, "PathIDX");// 99 - not interesting, -1 - static, 1 - moving target
             header.Insert(2, "timestamp");
-            header.Insert(3, "end_time");
+            header.Insert(3, "seconds");
             header.Insert(4, "head_pos");
             header.Insert(5, "head_euler");
-            header.Insert(6, "gaze_confidence");
-            header.Insert(7, "gaze_pos");
-            header.Insert(8, "target_pos");
-            header.Insert(9, "gaze_vector");
-            header.Insert(10, "target_vector");
-            header.Insert(11, "gaze_vis_x");
-            header.Insert(12, "gaze_vis_y");
-            header.Insert(13, "target_vis_x");
-            header.Insert(14, "target_vis_y");
-            header.Insert(15, "local_x_axis");
-            header.Insert(16, "local_y_axis");
-            header.Insert(17, "local_z_axis");
-            header.Insert(18, "left_right_eye_center");
-            header.Insert(19, "left_right_eye_center_confidence");
-            header.Insert(20, "left_right_eye_gaze");
-            header.Insert(21, "left_right_eye_forward_gaze");
-            header.Insert(22, "left_right_eye_is_blinking");
-            header.Insert(23, "calibration_status");
+            header.Insert(6, "head_quaternion");
+            header.Insert(7, "gaze_confidence");
+            header.Insert(8, "gaze_pos");
+            header.Insert(9, "target_pos");
+            header.Insert(10, "gaze_vector");
+            header.Insert(11, "target_vector");
+            header.Insert(12, "gaze_vis_x");
+            header.Insert(13, "gaze_vis_y");
+            header.Insert(14, "target_vis_x");
+            header.Insert(15, "target_vis_y");
+            header.Insert(16, "local_x_axis");
+            header.Insert(17, "local_y_axis");
+            header.Insert(18, "local_z_axis");
+            header.Insert(19, "left_right_eye_center");
+            header.Insert(20, "left_right_eye_center_confidence");
+            header.Insert(21, "left_right_eye_gaze");
+            header.Insert(22, "left_right_eye_forward_gaze");
+            header.Insert(23, "left_right_eye_is_blinking");
+            header.Insert(24, "calibration_status");
         }
 
         private void InitDict()
@@ -107,11 +157,12 @@ namespace MagicLeap_EyeTracking.Logger
             trialStarted = true;
             currentTrialNumber += 1;
             InitDict();
-            trial["number"] = currentTrialNumber.ToString();
+            trial["frame"] = currentTrialNumber.ToString();
             trial["PathIDX"] = nextPath.ToString();
             trial["timestamp"] = System.DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.ffff tt").Replace(',', '_');
             trial["head_pos"] = camera.transform.position.ToString("f7").Replace(',', '_');
-            trial["head_euler"] = camera.transform.eulerAngles.ToString().Replace(',', '_');
+            trial["head_euler"] = camera.transform.eulerAngles.ToString("f7").Replace(',', '_');
+            trial["head_quaternion"] = camera.transform.rotation.ToString("f7").Replace(',', '_');
             trial["gaze_confidence"] = MLEyes.FixationConfidence.ToString();
             trial["gaze_pos"] = MLEyes.FixationPoint.ToString("f7").Replace(',', '_');
             trial["target_pos"] = transform.position.ToString("f7").Replace(',', '_');
@@ -151,7 +202,7 @@ namespace MagicLeap_EyeTracking.Logger
             {
                 if (trialStarted)
                 {
-                    trial["end_time"] = Time.time.ToString();
+                    trial["seconds"] = Time.time.ToString();
                     output.Add(FormatTrialData());
                     trialStarted = false;
                 }
