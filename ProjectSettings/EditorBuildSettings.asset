@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/b5.unity
     guid: 24847ab91c9ffba4299d9748080b5a85
+  - enabled: 1
+    path: Assets/Scenes/callibrate.unity
+    guid: f3330167e14139e40ae6eb3bc68f9509
   m_configObjects:
     com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: e74d74253eeaaee41a6792c8d86712a8, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 59ceb475d0dbca0478340e450c5339b6, type: 2}

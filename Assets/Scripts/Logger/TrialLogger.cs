@@ -141,7 +141,8 @@ namespace MagicLeap_EyeTracking.Logger
             header.Insert(21, "left_right_eye_gaze");
             header.Insert(22, "left_right_eye_forward_gaze");
             header.Insert(23, "left_right_eye_is_blinking");
-            header.Insert(24, "calibration_status");
+            header.Insert(24, "left_right_eye_pupil_size");
+            header.Insert(25, "calibration_status");
         }
 
         private void InitDict()
@@ -172,6 +173,7 @@ namespace MagicLeap_EyeTracking.Logger
             trial["left_right_eye_gaze"] = MLEyes.LeftEye.Gaze.ToString("f7").Replace(',', '_')+":"+MLEyes.RightEye.Gaze.ToString("f7").Replace(',', '_');
             trial["left_right_eye_forward_gaze"] = MLEyes.LeftEye.ForwardGaze.ToString("f7").Replace(',', '_')+":"+MLEyes.RightEye.ForwardGaze.ToString("f7").Replace(',', '_');
             trial["left_right_eye_is_blinking"] = MLEyes.LeftEye.IsBlinking.ToString()+":"+MLEyes.RightEye.IsBlinking.ToString();
+            trial["left_right_eye_pupil_size"] = MLEyes.LeftEye.PupilSize.ToString("f7")+":"+MLEyes.RightEye.PupilSize.ToString("f7");
             trial["calibration_status"] = MLEyes.CalibrationStatus.ToString();
         }
 

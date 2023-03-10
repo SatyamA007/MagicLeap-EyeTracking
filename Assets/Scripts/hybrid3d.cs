@@ -34,7 +34,6 @@ public class hybrid3d : MonoBehaviour
         trialLogger.Initialize(participantID, columnList);
         if(SceneManager.GetActiveScene().name.Equals("w2")){
             constTime = 14;
-            Debug.Log("yes");
         }
 
         transform.position = getPositionNext(idx)[0];
