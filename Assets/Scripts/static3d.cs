@@ -58,8 +58,11 @@ public class static3d : MonoBehaviour
         if ( Input.GetKeyDown(KeyCode.Q)&&idx<TOTAL_PATHS) {
             StartCoroutine(GetComponentInChildren<CountdownController>().CountdownToStart(2));
         }
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            QuitGame();
+        }
         if ( Input.GetKeyDown(KeyCode.X)) {
-            // trialLogger.gotReset = true;
+            trialLogger.gotReset = true;
             QuitGame();
         }
     }

@@ -75,31 +75,31 @@ namespace MagicLeap_EyeTracking.Logger
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {               
                 gotReset = true;
-                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w1"));
+                welcome.sceneIdx = 1+welcome.sceneOrder.FindIndex(x => x.StartsWith("w1"));
                 SceneManager.LoadScene("w1");
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {               
                 gotReset = true;
-                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w2"));
+                welcome.sceneIdx = 1+welcome.sceneOrder.FindIndex(x => x.StartsWith("w2"));
                 SceneManager.LoadScene("w2");
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {               
                 gotReset = true;
-                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("w3"));
+                welcome.sceneIdx = 1+welcome.sceneOrder.FindIndex(x => x.StartsWith("w3"));
                 SceneManager.LoadScene("w3");
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {               
                 gotReset = true;
-                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("s4"));
+                welcome.sceneIdx = 1+welcome.sceneOrder.FindIndex(x => x.StartsWith("s4"));
                 SceneManager.LoadScene("s4");
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {               
                 gotReset = true;
-                welcome.sceneIdx = welcome.sceneOrder.FindIndex(x => x.StartsWith("b5"));
+                welcome.sceneIdx = 1+welcome.sceneOrder.FindIndex(x => x.StartsWith("b5"));
                 SceneManager.LoadScene("b5");
             }
         }
