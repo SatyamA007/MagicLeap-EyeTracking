@@ -4,6 +4,10 @@ Evaluating eye tracking across multiple platforms and use cases is challenging f
 
 We developed EyeTTS, an eye tracking test suite specifically designed for scenarios involving head movement and locomotion in AR. 
 
+**Publication:** Published in 2024 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW); DOI:  <a _ngcontent-ng-c965805560="" target="_blank" rel="noopener noreferrer" class="underline mat-subtitle-2" href="https://doi.org/10.1109/vrw62533.2024.00321">
+    10.1109/vrw62533.2024.00321
+  </a>
+  
 Please find the repositories for our eye tracking test suites for respective headsets below. Though we created separate projects for these devices, primarily due the different SDKs for each device. The same test suite has been implemented in these three projects.  
 
 - Magic Leap 2 - https://github.com/SatyamA007/MagicLeap-EyeTracking
@@ -13,7 +17,7 @@ Please find the repositories for our eye tracking test suites for respective hea
 The data-processing and analysis code for the eye tracking test suite can be found here: https://github.com/SatyamA007/MagicLeap-EyeTracking-data
 
 ## Overview
-We conducted a user study on Magic Leap using EyeTTS to elucidate differences in eye tracking performance in AR due to device types, calibration methods, and stimulus movement. 
+We conducted a user study on Magic Leap using EyeTTS to elucidate differences in eye tracking performance in AR due to device types, calibration methods, and stimulus movement.
 
 We outline the tasks presented in the two studies below:
 
