@@ -10,6 +10,8 @@ Please find the repositories for our eye tracking test suites for respective hea
 - Meta Quest Pro - https://github.com/sydneylim/QuestPro_EyeTracking
 - Hololens 2 - https://github.com/vivianross06/HoloLens-Eye-Tracking
 
+The data-processing and analysis code for the eye tracking test suite can be found here: https://github.com/SatyamA007/MagicLeap-EyeTracking-data
+
 ## Overview
 We conducted a user study on Magic Leap using EyeTTS to elucidate differences in eye tracking performance in AR due to device types, calibration methods, and stimulus movement. 
 
