@@ -8,6 +8,7 @@ public class welcome : MonoBehaviour
 
     public static List<string> sceneOrder = new List<string> {};
 
+    // Using latin square to randomize order of scenes across participants, while keeping the same order within a participant. Each row corresponds to a different participant, and each column corresponds to a different scene. The number in each cell corresponds to the index of the scene in the temp array.
     int[,] latinSquareOrder = new int [1,6]{
         // {1,	2,	4,	0,	3,	5},//A
         // {2,	3,	5,	1,	4,	0},//B
