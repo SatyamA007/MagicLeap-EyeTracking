@@ -4,13 +4,18 @@ Evaluating eye tracking across multiple platforms and use cases is challenging f
 
 We developed EyeTTS, an eye tracking test suite specifically designed for scenarios involving head movement and locomotion in AR. 
 
-**Publication:** Published in 2024 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW); DOI:  <a _ngcontent-ng-c965805560="" target="_blank" rel="noopener noreferrer" class="underline mat-subtitle-2" href="https://doi.org/10.1109/vrw62533.2024.00321">
+**Publication:** 
+- 2024 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW); DOI:  <a _ngcontent-ng-c965805560="" target="_blank" rel="noopener noreferrer" class="underline mat-subtitle-2" href="https://doi.org/10.1109/vrw62533.2024.00321">
     10.1109/vrw62533.2024.00321
   </a>
+- 2023 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct);DOI: <a _ngcontent-ng-c965805560="" target="_blank" rel="noopener noreferrer" class="underline mat-subtitle-2" href="https://doi.org/10.1109/ismar-adjunct60411.2023.00104">
+    10.1109/ismar-adjunct60411.2023.00104
+  </a>
+
   
 Please find the repositories for our eye tracking test suites for respective headsets below. Though we created separate projects for these devices, primarily due the different SDKs for each device. The same test suite has been implemented in these three projects.  
 
-- Magic Leap 2 - https://github.com/SatyamA007/MagicLeap-EyeTracking
+- Magic Leap 1 - https://github.com/SatyamA007/MagicLeap-EyeTracking
 - Meta Quest Pro - https://github.com/sydneylim/QuestPro_EyeTracking
 - Hololens 2 - https://github.com/vivianross06/HoloLens-Eye-Tracking
 
@@ -48,6 +53,6 @@ There are two main scripts in the project: <b>welcome.cs</b> and <b>Logger/Trial
 
 ## Compatibility
 This project was developed and tested on the following software and hardware:
-- Magic Leap 2
+- Magic Leap 1
 - Unity Editor 2020.3
 - Magic Leap Unity SDK 0.26.0
